@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 import { App } from '@slack/bolt';
+import assignRepView from './add-rep-view';
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -16,40 +17,38 @@ app.event('app_home_opened', async ({ message, say }) => {
   await say("Please use this bot in #gatego-sales");
 });
 
-app.event('app_mention', async ({ event, context, client, say }) => {
-  console.log(event.text)
-  var cmd = event.text.substr(event.text.indexOf(">") + 2)
+app.command('/sales', async ({ ack, body, client }) => {
+  await ack();  
   
-  if (cmd.indexOf("help") != undefined) {
+  if (body.text = "assign") {
     try {
-      await say({"blocks": [
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": `*Commands:* \n\n \`help\` get command list \n \`<@U028PQ7M4KG> assign\` assign a sales rep to a Stripe user \n \`<@U028PQ7M4KG> unassign\` unassign a sales rep from a Stripe user`
-          },
-        }
-    ]});
-    }
-    catch (error) {
-      console.error(error);
-    }
-  } else {
-      try {
-      await say({"blocks": [
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": `Thanks for the mention <@${event.user}>! I'm currently under development, but stay tuned! \n The command you sent was: \`${cmd}\``
-          },
-        }
-      ]});
-    }
-    catch (error) {
-      console.error(error);
-    }
+    // Call views.open with the built-in client
+    const result = await client.views.open({
+      // Pass a valid trigger_id within 3 seconds of receiving it
+      trigger_id: body.trigger_id,
+      // View payload
+      view: assignRepView as any
+    });
+    console.log(result);
   }
+  catch (error) {
+    console.error(error);
+  }
+  }
+});
+
+app.action('consent', async ({ ack }) => {
+  await ack();
+  // Update the message to reflect the action
+});
+
+app.view('assign-a-rep', async ({ ack, body, view, client }) => {
+  // Acknowledge the view_submission event
+  await ack();
+
+  //console.log(body);
+  console.log(view.state.values);
   
+  
+
 });
