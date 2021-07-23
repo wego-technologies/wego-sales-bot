@@ -1,9 +1,9 @@
-var assignRepView = {
+var unassignRepView = {
   "type": "modal",
-  "callback_id": "assign-a-rep",
+  "callback_id": "unassign-a-rep",
   "title": {
     "type": "plain_text",
-    "text": "Assign a Rep",
+    "text": "Unassign a Rep",
     "emoji": true
   },
   "submit": {
@@ -36,23 +36,26 @@ var assignRepView = {
         "emoji": true
       }
     },
-    {
-      "type": "input",
-      "element": {
-        "type": "users_select",
-        "placeholder": {
-          "type": "plain_text",
-          "text": "Select users",
-          "emoji": true
-        },
-        "action_id": "user"
-      },
-      "label": {
-        "type": "plain_text",
-        "text": "Sales Representative Selection",
-        "emoji": true
-      }
-    },
+    // {
+    //   "type": "input",
+    //   "element": {
+    //     "type": "users_select",
+    //     "placeholder": {
+    //       "type": "plain_text",
+    //       "text": "Select users",
+    //       "emoji": true
+    //     },
+    //     "action_id": "user"
+    //   },
+    //   "label": {
+    //     "type": "plain_text",
+    //     "text": "Sales Representative Selection",
+    //     "emoji": true
+    //   }
+    // },
+    // {
+    //   "type": "divider"
+    // },
     // {
     //   "type": "section",
     //   "text": {
@@ -80,4 +83,4 @@ var assignRepView = {
   ]
 };
 
-export default assignRepView;
+export default unassignRepView;
