@@ -50,9 +50,7 @@ webhookApp.post('/stripe', bodyParser.raw({type: 'application/json'}), async (re
     case 'invoice.payment_succeeded':
       const paymentIntent = event.data.object as any;
       console.log('PaymentIntent was successful!');
-      console.log(paymentIntent.amount_paid);
       const cust = await stripe.customers.retrieve(paymentIntent.customer)
-      console.log(cust);
       
       if (!cust.deleted && cust.metadata.sales_rep != undefined) {
         app.client.chat.postMessage({channel: process.env.SLACK_NOTIF_CHAN ?? "", text: `> :tada: *Congratulations!*\n> <@${cust.metadata.sales_rep}> your customer <https://dashboard.stripe.com/customers/${paymentIntent.customer}|${paymentIntent.customer}> | ${cust.name ?? "No Name"} | ${cust.email ?? "No Email"} has just been billed $${paymentIntent.amount_paid}!\n> Commission:  $${calculateCommision(paymentIntent.amount_paid)}`})
@@ -77,7 +75,7 @@ app.command('/sales', async ({ ack, body, client }) => {
     try {
 
       const customers = await stripe.customers.list({
-        limit: 30,
+        limit: 500,
       });
 
       assignRepView.blocks[0].element!.options.length = 0;
@@ -109,7 +107,7 @@ app.command('/sales', async ({ ack, body, client }) => {
   } else if (body.text == "unassign") {try {
 
     const customers = await stripe.customers.list({
-      limit: 30,
+      limit: 500,
     });
 
     unassignRepView.blocks[0].element!.options.length = 0;
