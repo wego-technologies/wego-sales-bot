@@ -80,30 +80,30 @@ var assignRepView = {
     {
       "type": "divider"
     },
-    {
-      "type": "section",
-      "text": {
-        "type": "mrkdwn",
-        "text": "Please tick the checkbox below."
-      },
-      "accessory": {
-        "type": "checkboxes",
-        "options": [
-          {
-            "text": {
-              "type": "mrkdwn",
-              "text": "All the information is correct"
-            },
-            "description": {
-              "type": "mrkdwn",
-              "text": "Assign this customer to the selected representative."
-            },
-            "value": "consent"
-          }
-        ],
-        "action_id": "consent"
-      }
-    }
+    // {
+    //   "type": "section",
+    //   "text": {
+    //     "type": "mrkdwn",
+    //     "text": "Please tick the checkbox below."
+    //   },
+    //   "accessory": {
+    //     "type": "checkboxes",
+    //     "options": [
+    //       {
+    //         "text": {
+    //           "type": "mrkdwn",
+    //           "text": "All the information is correct"
+    //         },
+    //         "description": {
+    //           "type": "mrkdwn",
+    //           "text": "Assign this customer to the selected representative."
+    //         },
+    //         "value": "consent"
+    //       }
+    //     ],
+    //     "action_id": "consent"
+    //   }
+    // }
   ]
 };
 
