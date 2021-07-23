@@ -6,6 +6,7 @@ import unassignRepView from './remove-rep-view';
 import Stripe from 'stripe';
 
 import express from 'express';
+import calculateCommision from './commsion-calc';
 const bodyParser = require('body-parser');
 
 const stripe = new Stripe(process.env.STRIPE_SK ?? "", {apiVersion: '2020-08-27'});
@@ -28,7 +29,7 @@ webhookApp.listen( process.env.PORT, () => {
     console.log( `⚡️ Webhook reciever is running!` );
 })
 
-webhookApp.post('/stripe', bodyParser.raw({type: 'application/json'}), (request, response) => {
+webhookApp.post('/stripe', bodyParser.raw({type: 'application/json'}), async (request, response) => {
   const sig = request.headers['stripe-signature']!;
 
   let event;
@@ -49,8 +50,13 @@ webhookApp.post('/stripe', bodyParser.raw({type: 'application/json'}), (request,
     case 'invoice.payment_succeeded':
       const paymentIntent = event.data.object as any;
       console.log('PaymentIntent was successful!');
-      console.log(paymentIntent.customer);
+      console.log(paymentIntent.amount_paid);
+      const cust = await stripe.customers.retrieve(paymentIntent.customer)
+      console.log(cust);
       
+      if (!cust.deleted && cust.metadata.sales_rep != undefined) {
+        app.client.chat.postMessage({channel: process.env.SLACK_NOTIF_CHAN ?? "", text: `> :tada: *Congratulations!*\n> <@${cust.metadata.sales_rep}> your customer <https://dashboard.stripe.com/customers/${paymentIntent.customer}|${paymentIntent.customer}> | ${cust.name ?? "No Name"} | ${cust.email ?? "No Email"} has just been billed $${paymentIntent.amount_paid}!\n> Commission:  $${calculateCommision(paymentIntent.amount_paid)}`})
+      }
       break;
     default:
       console.log(`Unhandled event type ${event.type}`);
