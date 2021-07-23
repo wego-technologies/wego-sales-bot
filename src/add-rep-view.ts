@@ -30,26 +30,10 @@ var assignRepView = {
           {
             "text": {
               "type": "plain_text",
-              "text": "*this is plain_text text*",
+              "text": "Other",
               "emoji": true
             },
-            "value": "value-0"
-          },
-          {
-            "text": {
-              "type": "plain_text",
-              "text": "*this is plain_text text*",
-              "emoji": true
-            },
-            "value": "value-1"
-          },
-          {
-            "text": {
-              "type": "plain_text",
-              "text": "*this is plain_text text*",
-              "emoji": true
-            },
-            "value": "value-2"
+            "value": "other"
           }
         ],
         "action_id": "customer"
