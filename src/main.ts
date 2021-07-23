@@ -5,6 +5,9 @@ import assignRepView from './add-rep-view';
 import unassignRepView from './remove-rep-view';
 import Stripe from 'stripe';
 
+import express from 'express';
+const bodyParser = require('body-parser');
+
 const stripe = new Stripe(process.env.STRIPE_SK ?? "", {apiVersion: '2020-08-27'});
 
 const app = new App({
@@ -14,10 +17,48 @@ const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET
 });
 
+const webhookApp = express();
+
 (async () => {
   await app.start({port: 3000});
   console.log('⚡️ Bolt app is running!');
 })();
+
+webhookApp.listen( process.env.PORT, () => {
+    console.log( `⚡️ Webhook reciever is running!` );
+})
+
+webhookApp.post('/stripe', bodyParser.raw({type: 'application/json'}), (request, response) => {
+  const sig = request.headers['stripe-signature']!;
+
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(request.body, sig, process.env.STRIPE_WH_SEC!, 60);
+  }
+  catch (err) {
+    response.status(400).send(`Webhook Error: ${(err as any).message}`);
+  }
+  if (event == undefined) {
+    console.log("No event");
+    return;
+  }
+
+  // Handle the event
+  switch (event.type) {
+    case 'invoice.payment_succeeded':
+      const paymentIntent = event.data.object as any;
+      console.log('PaymentIntent was successful!');
+      console.log(paymentIntent.customer);
+      
+      break;
+    default:
+      console.log(`Unhandled event type ${event.type}`);
+  }
+
+  // Return a response to acknowledge receipt of the event
+  response.json({received: true});
+});
 
 // app.event('app_home_opened', async ({ message, say }) => {
 //   await say("Please use this bot in #gatego-sales");

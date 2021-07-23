@@ -54,6 +54,9 @@ var assignRepView = {
       }
     },
     // {
+    //   "type": "divider"
+    // },
+    // {
     //   "type": "section",
     //   "text": {
     //     "type": "mrkdwn",
