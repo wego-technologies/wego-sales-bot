@@ -61,8 +61,8 @@ webhookApp.post('/stripe', bodyParser.raw({type: 'application/json'}), async (re
       const cust = await stripe.customers.retrieve(paymentIntent.customer)
       
       if (!cust.deleted && cust.metadata.sales_rep != undefined) {
-        app.client.chat.postMessage({ channel: process.env.SLACK_NOTIF_CHAN ?? "", text: `> :tada: *Congratulations!*\n> <@${cust.metadata.sales_rep}> your customer <https://dashboard.stripe.com/customers/${paymentIntent.customer}|${paymentIntent.customer}> | ${cust.name ?? "No Name"} | ${cust.email ?? "No Email"} has just been billed $${paymentIntent.amount_paid}!\n> Commission:  $${calculateCommision(paymentIntent.amount_paid)}` })
-        app.client.chat.postMessage({channel: process.env.SLACK_PAY_CHAN ?? "", blocks: pendingPayment(cust.metadata.sales_rep, calculateCommision(paymentIntent.amount_paid)) as any, text: `Commission Payment of ${calculateCommision(paymentIntent.amount_paid)} pending.`})
+        app.client.chat.postMessage({ channel: process.env.SLACK_NOTIF_CHAN ?? "", text: `> :tada: *Congratulations!*\n> <@${cust.metadata.sales_rep}> your customer <https://dashboard.stripe.com/customers/${paymentIntent.customer}|${paymentIntent.customer}> | ${cust.name ?? "No Name"} | ${cust.email ?? "No Email"} has just been billed $${(paymentIntent.amount_paid/100)}!\n> Commission:  $${calculateCommision((paymentIntent.amount_paid/100))}` })
+        app.client.chat.postMessage({channel: process.env.SLACK_PAY_CHAN ?? "", blocks: pendingPayment(cust.metadata.sales_rep, calculateCommision((paymentIntent.amount_paid/100))) as any, text: `Commission Payment of ${calculateCommision((paymentIntent.amount_paid/100))} pending.`})
       }
       break;
     default:
