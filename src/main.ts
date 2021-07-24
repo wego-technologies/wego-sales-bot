@@ -22,7 +22,7 @@ const intervalController = setInterval(() => updateCustomers(stripe), 60000);
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
   appToken: process.env.SLACK_WS_TOK,
-  socketMode: true,
+  //socketMode: true,
   signingSecret: process.env.SLACK_SIGNING_SECRET
 });
 
