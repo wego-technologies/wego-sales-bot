@@ -1,7 +1,7 @@
 function pendingPayment(user: String, amount: number, pending: boolean = true, paidBy? : String) {
   var text = `*Commission to*: <@${ user }>\n*Amount*: $${amount} ${pending ? "\nPay at the earliest convenience." : `\n*PAID* by <@${paidBy}>`}`;
   
-  var basic : any =  [
+  var basic : Array<any> =  [
       {
         "type": "header",
         "text": {
@@ -19,11 +19,11 @@ function pendingPayment(user: String, amount: number, pending: boolean = true, p
           "type": "mrkdwn",
           "text": text
         }
-      },
+      }
   ]
   
   if (pending) {
-    basic += [{
+    basic.push(...[{
         "type": "section",
         "text": {
           "type": "mrkdwn",
@@ -58,7 +58,7 @@ function pendingPayment(user: String, amount: number, pending: boolean = true, p
             "action_id": "payment-complete"
           }
         ]
-      }]
+      }])
   }
 
   return basic;
