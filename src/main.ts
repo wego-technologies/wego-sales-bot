@@ -1,4 +1,6 @@
-require('dotenv').config()
+const path = require('path'); 
+require('dotenv').config({ path: path.join(__dirname, `../.env.${process.env.NODE_ENV}`)});
+
 
 import { App } from '@slack/bolt';
 import assignRepView from './add-rep-view';
@@ -7,9 +9,15 @@ import Stripe from 'stripe';
 
 import express from 'express';
 import calculateCommision from './commsion-calc';
+import pendingPayment from './pending-payment';
 const bodyParser = require('body-parser');
 
-const stripe = new Stripe(process.env.STRIPE_SK ?? "", {apiVersion: '2020-08-27'});
+import { updateCustomers } from './clients-cache';
+
+
+const stripe = new Stripe(process.env.STRIPE_SK ?? "", { apiVersion: '2020-08-27' });
+updateCustomers(stripe);
+const intervalController = setInterval(() => updateCustomers(stripe), 60000);
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -53,7 +61,8 @@ webhookApp.post('/stripe', bodyParser.raw({type: 'application/json'}), async (re
       const cust = await stripe.customers.retrieve(paymentIntent.customer)
       
       if (!cust.deleted && cust.metadata.sales_rep != undefined) {
-        app.client.chat.postMessage({channel: process.env.SLACK_NOTIF_CHAN ?? "", text: `> :tada: *Congratulations!*\n> <@${cust.metadata.sales_rep}> your customer <https://dashboard.stripe.com/customers/${paymentIntent.customer}|${paymentIntent.customer}> | ${cust.name ?? "No Name"} | ${cust.email ?? "No Email"} has just been billed $${paymentIntent.amount_paid}!\n> Commission:  $${calculateCommision(paymentIntent.amount_paid)}`})
+        app.client.chat.postMessage({ channel: process.env.SLACK_NOTIF_CHAN ?? "", text: `> :tada: *Congratulations!*\n> <@${cust.metadata.sales_rep}> your customer <https://dashboard.stripe.com/customers/${paymentIntent.customer}|${paymentIntent.customer}> | ${cust.name ?? "No Name"} | ${cust.email ?? "No Email"} has just been billed $${paymentIntent.amount_paid}!\n> Commission:  $${calculateCommision(paymentIntent.amount_paid)}` })
+        app.client.chat.postMessage({channel: process.env.SLACK_PAY_CHAN ?? "", blocks: pendingPayment(cust.metadata.sales_rep, calculateCommision(paymentIntent.amount_paid)) as any, text: `Commission Payment of ${calculateCommision(paymentIntent.amount_paid)} pending.`})
       }
       break;
     default:
@@ -75,7 +84,7 @@ app.command('/sales', async ({ ack, body, client }) => {
     try {
 
       const customers = await stripe.customers.list({
-        limit: 500,
+        limit: 50,
       });
 
       assignRepView.blocks[0].element!.options.length = 0;
@@ -107,7 +116,7 @@ app.command('/sales', async ({ ack, body, client }) => {
   } else if (body.text == "unassign") {try {
 
     const customers = await stripe.customers.list({
-      limit: 500,
+      limit: 50,
     });
 
     unassignRepView.blocks[0].element!.options.length = 0;
@@ -183,7 +192,8 @@ app.view('assign-a-rep', async ({ ack, body, view, client }) => {
       );
 
       if (updatedCust.metadata.sales_rep == commisionData.agent) {
-        client.chat.update({channel: res.channel ?? "", ts: res.ts ?? "", text: `> :tada: *Congratulations!*\n> <@${commisionData.agent}> will now recieve commision from <https://dashboard.stripe.com/customers/${commisionData.customer}|${commisionData.customer}>.`})
+        client.chat.update({ channel: res.channel ?? "", ts: res.ts ?? "", text: `> :tada: *Congratulations!*\n> <@${commisionData.agent}> will now recieve commision from <https://dashboard.stripe.com/customers/${commisionData.customer}|${commisionData.customer}>.` })
+
       }
     } else if (currentCust.deleted) {
       client.chat.update({channel: res.channel ?? "", ts: res.ts ?? "", text: `> :warning: *Error!*\n> Could not link <@${commisionData.agent}> with <https://dashboard.stripe.com/customers/${commisionData.customer}|${commisionData.customer}> because this customer does not exist or has been deleted.`})
@@ -265,4 +275,25 @@ app.view('unassign-a-rep', async ({ ack, body, view, client }) => {
 app.action("consent", async ({ ack, body, client }) => {
   // Acknowledge the view_submission event
   await ack();
+})
+
+app.action("open-deel-btn", async ({ ack, body, client }) => {
+  // Acknowledge the view_submission event
+  await ack();
+})
+
+app.action("payment-complete", async ({ ack, body, client, respond, context, action, payload, say, logger, next}) => {
+  // Acknowledge the view_submission event
+  await ack();
+  console.log(body as any);
+
+  var extractedData = ((body as any).actions[0].value as String).split(",")
+  
+  respond({
+    //replace_original: true,
+    text: `Comission paid by <@${body.user.id}>`,
+    blocks: pendingPayment(extractedData[0], parseInt(extractedData[1]), false, body.user.id)
+  })
+  
+
 })
