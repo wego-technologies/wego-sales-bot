@@ -91,7 +91,7 @@ app.command('/sales', async ({ ack, body, client }) => {
 
       const optionsGen = customers.data.forEach(element => {
         var isAssigned = (element.metadata.sales_rep != undefined)
-        assignRepView.blocks[0].element?.options?.unshift({
+        assignRepView.blocks[0].element?.options?.push({
             "text": {
               "type": "plain_text",
               "text": (isAssigned ? ":warning: " : ":white_check_mark: ") + (element.name ?? "No Name") + " | " + (element.email ?? "No Email"),
