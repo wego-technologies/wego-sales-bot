@@ -1,12 +1,12 @@
 import { Stripe } from "stripe";
 
 
-var clients : Stripe.Response<Stripe.ApiList<Stripe.Customer>>
+export var clients : Stripe.Response<Stripe.ApiList<Stripe.Customer>>
 
 export async function updateCustomers(stripe: Stripe) {
   console.log("Updating clients...");
   
-  var clients = await stripe.customers.list({limit: 100});
+  clients = await stripe.customers.list({limit: 100});
 
   console.log("Update complete!");
   
