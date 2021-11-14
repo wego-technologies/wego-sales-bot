@@ -3,8 +3,8 @@ require('dotenv').config({ path: path.join(__dirname, `../.env.${process.env.NOD
 
 
 import { App } from '@slack/bolt';
-import assignRepView from './add-rep-view';
-import unassignRepView from './remove-rep-view';
+import assignRepView from './views/add-rep-view';
+import unassignRepView from './views/remove-rep-view';
 import Stripe from 'stripe';
 
 import express from 'express';
@@ -83,11 +83,9 @@ app.command('/sales', async ({ ack, body, client }) => {
   if (body.text == "assign") {
     try {
 
-      const customers = clients;
-
       assignRepView.blocks[0].element!.options.length = 0;
 
-      const optionsGen = customers.data.forEach(element => {
+      clients.data.forEach(element => {
         var isAssigned = (element.metadata.sales_rep != undefined)
         assignRepView.blocks[0].element?.options?.push({
             "text": {
@@ -113,13 +111,9 @@ app.command('/sales', async ({ ack, body, client }) => {
   }
   } else if (body.text == "unassign") {try {
 
-    const customers = await stripe.customers.list({
-      limit: 50,
-    });
-
     unassignRepView.blocks[0].element!.options.length = 0;
 
-    const optionsGen = customers.data.forEach(element => {
+    clients.data.forEach(element => {
       var isAssigned = (element.metadata.sales_rep == undefined)
       unassignRepView.blocks[0].element?.options?.unshift({
           "text": {
