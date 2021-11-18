@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "stripe": "^8.188.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.4.4"
+    "typescript": "^4.5.2"
   },
   "devDependencies": {
     "concurrently": "^6.4.0",
