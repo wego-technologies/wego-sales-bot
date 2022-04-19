@@ -7,21 +7,21 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
-"@slack/bolt@^3.10.0":
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/@slack/bolt/-/bolt-3.10.0.tgz#d8c24d7f5a456372402a35e121fb66c74b333e58"
-  integrity sha512-M3d7qwjBVRdgmhsw7ikVFtxm8VHWYV+hvMWulKmzF0g8K9xc5SaRhnMn3LsG3cSe1nKTiaoOPYcw6v6TuJp6gg==
+"@slack/bolt@^3.11.0":
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/@slack/bolt/-/bolt-3.11.0.tgz#5f75e9a34a3acb9b0e593e2767ed7c98b5c47a7a"
+  integrity sha512-kUBR9ESsyoxRRIeOYwK1NZCo/9SNDm92bGIYqYWipllYSPQvlhnm84wIcFBd72e6o1CJhUcrtnaArqsoUG5v+g==
   dependencies:
     "@slack/logger" "^3.0.0"
-    "@slack/oauth" "^2.4.0"
+    "@slack/oauth" "^2.5.1"
     "@slack/socket-mode" "^1.2.0"
     "@slack/types" "^2.4.0"
-    "@slack/web-api" "^6.7.0"
+    "@slack/web-api" "^6.7.1"
     "@types/express" "^4.16.1"
     "@types/node" ">=12"
     "@types/promise.allsettled" "^1.0.3"
     "@types/tsscmp" "^1.0.0"
-    axios "^0.21.4"
+    axios "^0.26.1"
     express "^4.16.4"
     please-upgrade-node "^3.2.0"
     promise.allsettled "^1.0.2"
@@ -35,10 +35,10 @@
   dependencies:
     "@types/node" ">=12.0.0"
 
-"@slack/oauth@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@slack/oauth/-/oauth-2.4.0.tgz#996d5e9f77d31e17f97711ffcad5f6542a027d71"
-  integrity sha512-Ct3eLGE8fb9ubBJdFV4JvjMU7Ds69xl1XQeJ9wFlapiHG/MDp2rUjSIPFMcQ4NT5E0yv5QjzHrGSa6D5XYaoEA==
+"@slack/oauth@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@slack/oauth/-/oauth-2.5.1.tgz#7dd582ccbbd4fd2209567044a35cc730b7c347ff"
+  integrity sha512-YNQbblkaEVhbzHs+6Bpbh+t6Pg21Rh9bM8Q+XhuMb61rLiIyl3wXiYrHWvlrpOtc41x5v9rEu3mOj0B/K5uNHw==
   dependencies:
     "@slack/logger" "^3.0.0"
     "@slack/web-api" "^6.3.0"
@@ -68,16 +68,16 @@
   resolved "https://registry.yarnpkg.com/@slack/types/-/types-2.4.0.tgz#b6f6d50e9181f723080b841302e089739cef512d"
   integrity sha512-0k8UlVEH9gUVwTbwcanS1JT2vCROkr1WESgdXW7d2maWYTuwbVEx87YvXPjsemAJfdu+RYqxGhO2oGTigprepA==
 
-"@slack/web-api@^6.2.3", "@slack/web-api@^6.3.0", "@slack/web-api@^6.7.0":
-  version "6.7.0"
-  resolved "https://registry.yarnpkg.com/@slack/web-api/-/web-api-6.7.0.tgz#86e326d84a41aea1a1d12394d1eb94f95bbb584e"
-  integrity sha512-Jd0ZC/aolkdeM2m3j0SYASlzoUe1AWgm19eDkmGjfli6CzoW1benYHqgMh1owS7+gLfe4FEILtE0fyVDZjgmGQ==
+"@slack/web-api@^6.2.3", "@slack/web-api@^6.3.0", "@slack/web-api@^6.7.1":
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/@slack/web-api/-/web-api-6.7.1.tgz#a0e983ec7925dccaf8fe15047f1a53eb82c24888"
+  integrity sha512-Aa2E/7NtGagd7mVsFCrc69iZMoviR2032SBOic06sYVvptdzJlvNsSQVqLCb1Aqz7r/jodb2fnXO1gl016OcWQ==
   dependencies:
     "@slack/logger" "^3.0.0"
     "@slack/types" "^2.0.0"
     "@types/is-stream" "^1.1.0"
     "@types/node" ">=12.0.0"
-    axios "^0.25.0"
+    axios "^0.26.1"
     eventemitter3 "^3.1.0"
     form-data "^2.5.0"
     is-electron "2.2.0"
@@ -261,19 +261,12 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
-axios@^0.21.4:
-  version "0.21.4"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
-  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+axios@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
+  integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
   dependencies:
-    follow-redirects "^1.14.0"
-
-axios@^0.25.0:
-  version "0.25.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.25.0.tgz#349cfbb31331a9b4453190791760a8d35b093e0a"
-  integrity sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==
-  dependencies:
-    follow-redirects "^1.14.7"
+    follow-redirects "^1.14.8"
 
 balanced-match@^1.0.0:
   version "1.0.2"
@@ -334,11 +327,6 @@ buffer-equal-constant-time@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz#f8e71132f7ffe6e01a5c9697a4c6f3e48d5cc819"
   integrity sha1-+OcRMvf/5uAaXJaXpMbz5I1cyBk=
-
-bytes@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.1.tgz#3f018291cb4cbad9accb6e6970bca9c8889e879a"
-  integrity sha512-dWe4nWO/ruEOY7HkUJ5gFt1DCFV9zPRoJr8pV0/ASQermOZjtq8jMjOprC0Kd10GLN+l7xaUPvxzJFWtxGu8Fg==
 
 bytes@3.1.2:
   version "3.1.2"
@@ -763,10 +751,10 @@ finity@^0.5.4:
   resolved "https://registry.yarnpkg.com/finity/-/finity-0.5.4.tgz#f2a8a9198e8286467328ec32c8bfcc19a2229c11"
   integrity sha512-3l+5/1tuw616Lgb0QBimxfdd2TqaDGpfCBpfX6EqtFmqUV3FtQnVEX4Aa62DagYEqnsTIjZcTfbq9msDbXYgyA==
 
-follow-redirects@^1.14.0, follow-redirects@^1.14.7:
-  version "1.14.8"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.8.tgz#016996fb9a11a100566398b1c6839337d7bfa8fc"
-  integrity sha512-1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==
+follow-redirects@^1.14.8:
+  version "1.14.9"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.9.tgz#dd4ea157de7bfaf9ea9b3fbd85aa16951f78d8d7"
+  integrity sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==
 
 form-data@^2.5.0:
   version "2.5.1"
@@ -1553,22 +1541,12 @@ range-parser@~1.2.1:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
 
-raw-body@2.4.3:
+raw-body@2.4.3, raw-body@^2.3.3:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.4.3.tgz#8f80305d11c2a0a545c2d9d89d7a0286fcead43c"
   integrity sha512-UlTNLIcu0uzb4D2f4WltY6cVjLi+/jEN4lgEUj3E04tpMDpUlkBo/eSn6zou9hum2VMNpCCUone0O0WeJim07g==
   dependencies:
     bytes "3.1.2"
-    http-errors "1.8.1"
-    iconv-lite "0.4.24"
-    unpipe "1.0.0"
-
-raw-body@^2.3.3:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.4.2.tgz#baf3e9c21eebced59dd6533ac872b71f7b61cb32"
-  integrity sha512-RPMAFUJP19WIet/99ngh6Iv8fzAbqum4Li7AD6DtGaW2RpMB/11xDoalPiJMTbu6I3hkbMVkATvZrqb9EEqeeQ==
-  dependencies:
-    bytes "3.1.1"
     http-errors "1.8.1"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
