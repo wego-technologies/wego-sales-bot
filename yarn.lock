@@ -1389,10 +1389,10 @@ strip-ansi@^6.0.1:
   dependencies:
     ansi-regex "^5.0.1"
 
-stripe@^9.13.0:
-  version "9.13.0"
-  resolved "https://registry.yarnpkg.com/stripe/-/stripe-9.13.0.tgz#eea108bf522c8a13089c1c32e757cfc274027e6f"
-  integrity sha512-PSxYaoaIoFwziNR4dmR6uw20UUmOM9ixtd8fML/gRWlPHsqi3FSGEszR//AttRjihRj+1SfjI5V/x6hhQZBTUA==
+stripe@^9.15.0:
+  version "9.15.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-9.15.0.tgz#d9c69b90799211fce1ef22c67b24dac63f888545"
+  integrity sha512-0Irs+6mNpZKhiXS/aieweXZEcOrJtUjPU0fIzEzrRg9VF9wyXWdUELWJbkxDhuyYMMKrrjA6c2YNtccBZX6tew==
   dependencies:
     "@types/node" ">=8.1.0"
     qs "^6.10.3"
