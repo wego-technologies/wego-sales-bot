@@ -90,7 +90,7 @@ app.command('/sales', async ({ ack, body, client }) => {
         assignRepView.blocks[0].element?.options?.push({
             "text": {
               "type": "plain_text",
-              "text": (isAssigned ? ":warning: " : ":white_check_mark: ") + " | " + (element.name ?? "No Name"),
+              "text": (isAssigned ? ":warning: " : ":white_check_mark: ") + (element.name ?? "No Name"),
               "emoji": true
             },
             "value": element.id
